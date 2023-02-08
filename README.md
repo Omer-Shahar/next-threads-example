@@ -57,10 +57,10 @@ Next, the `workers/workers.config.ts` file needs to be adjusted according to you
 > This file is only used for improved type-safety.
 > You can use the `Worker` class directly if you want.
 
-Go to `http://localhost:3000/api/fibonacci` and check that everything works.
+Go to the [fibonacci endpoint](http://localhost:3000/api/fibonacci) and check that everything works.
 
 If the error `Error: Cannot find module` appears, add or remove the string `../` from the code of the class `SingleThreadWorker`.
 
-Then, do the same for `http://localhost:3000/api/fibonacciPool` and the class `PoolWorker`.
+Then, do the same for the [fibonacciPool endpoint](http://localhost:3000/api/fibonacciPool) and the class `PoolWorker`.
 
 Happy Coding!
