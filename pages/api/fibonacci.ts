@@ -1,13 +1,15 @@
-import { spawn, Thread } from "threads";
-import { MathWorker } from "../../workers/math.worker";
-import { SingleThreadWorker } from "../../workers/workers.config";
+import { createMathWorker } from "workers/create";
+import { Spawn } from "workers/use";
 
 export default async (req: any, res: any) => {
-  const worker = await spawn<MathWorker>(new SingleThreadWorker("math.worker.ts"));
+  const rawWorker = createMathWorker();
+  const worker = Spawn(rawWorker);
 
-  const result = await worker.fibonacci(35);
+  const fibonacci = await worker.fibonacci;
+  const field = await worker.field;
+  const promises = [fibonacci(35), fibonacci(-1)];
+  const results = await Promise.allSettled(promises);
+  rawWorker.terminate();
 
-  await Thread.terminate(worker);
-
-  res.status(200).json(result);
+  res.status(200).json({ results, field });
 };

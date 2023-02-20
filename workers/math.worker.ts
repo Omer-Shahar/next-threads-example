@@ -1,5 +1,5 @@
-import { expose } from "threads/worker";
 import { threadId } from "worker_threads";
+import { Expose } from "./use";
 
 function fibonacci(n: number): number {
   if (n < 2) return 1;
@@ -15,19 +15,20 @@ function lucas(n: number): number {
 const mathWorker = {
   fibonacci(n: number) {
     console.log(`Calculating fibonacci(${n}) in thread ${threadId}...`);
+    if (n < 0) throw new Error("n must be >= 0");
     return { type: "fibonacci", n, result: fibonacci(n), threadId } as const;
   },
   lucas(n: number) {
     console.log(`Calculating lucas(${n}) in thread ${threadId}...`);
     return { type: "lucas", n, result: lucas(n), threadId } as const;
   },
+  test(n: number, m: number) {
+    console.log(`Calculating test(${n}, ${m}) in thread ${threadId}...`);
+    return { type: "test", n, m, result: n + m, threadId } as const;
+  },
+  field: { a: 1, b: 2, c: 3 },
 };
 
 export type MathWorker = typeof mathWorker;
 
-expose(mathWorker);
-
-//! IMPORTANT:
-// 1. Add ts-node as a dev dependency
-// 2. Add ts-node configurations in tsconfig.json
-// 3. Make sure that workers/workers.ts has the right path to the worker files
+Expose(mathWorker);
