@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ModuleThread, spawn, Thread } from "threads";
-import { getHelloWorker } from "workers/getClientWorker";
-import { HelloWorker } from "workers/hello.worker";
+import { getHelloWorker } from "../workers/getClientWorker";
+import { HelloWorker } from "../workers/hello.worker";
 
 export default function Home() {
   const worker = useRef<ModuleThread<HelloWorker>>();

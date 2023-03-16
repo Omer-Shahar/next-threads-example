@@ -1,7 +1,7 @@
 import { spawn, Pool } from "threads";
 import { QueuedTask } from "threads/dist/master/pool";
-import { getMathWorker } from "workers/getServerWorker";
-import { MathWorker } from "workers/math.worker";
+import { getMathWorker } from "../../workers/getServerWorker";
+import { MathWorker } from "../../workers/math.worker";
 
 export default async (req: any, res: any) => {
   const POOL_SIZE = 4;
