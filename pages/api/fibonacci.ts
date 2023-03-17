@@ -3,6 +3,7 @@ import { getMathWorker } from "workers/getServerWorker";
 import { MathWorker } from "workers/math.worker";
 
 export default async (req: any, res: any) => {
+  console.log(import.meta.url)
   const worker = await spawn<MathWorker>(getMathWorker());
 
   const result = await worker.fibonacci(35);
